@@ -5,6 +5,7 @@ import Form from './pages/Form';
 import AdminLogin from './admin/Login';
 import AdminDashboard from './admin/Dashboard';
 import AdminProfile from './admin/Profile';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         element: <AdminProfile />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   }
 ]);
 
