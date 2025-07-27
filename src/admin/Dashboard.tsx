@@ -18,7 +18,7 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate('/admin/login');
+      navigate('/admin');
     }, 800);
   };
 
@@ -27,14 +27,14 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
       <div className="flex flex-col gap-4 mt-10">
         <button
           className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-          onClick={() => handleNavigate('/admin/profile')}
+          onClick={() => handleNavigate('/admin/dashboard/profile')}
         >
           <User size={20} />
           <span>Profile</span>
         </button>
         <button
           className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-          onClick={() => handleNavigate('/admin/appointments')}
+          onClick={() => handleNavigate('/admin/dashboard/appointments')}
         >
           <CalendarDays size={20} />
           <span>Appointments</span>
@@ -57,6 +57,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
+  const isDashboardRoot = location.pathname === '/admin/dashboard';
+
   return (
     <div className="flex min-h-screen">
       <Sidebar setLoading={setLoading} />
@@ -65,11 +67,10 @@ const Dashboard = () => {
           <Loader size={48} />
         ) : (
           <>
-            
-            {location.pathname === '/admin/profile' ? (
-              <Outlet />
-            ) : (
+            {isDashboardRoot ? (
               <h1 className="text-2xl font-bold text-blue-700 mb-4">Admin Dashboard</h1>
+            ) : (
+              <Outlet />
             )}
           </>
         )}
