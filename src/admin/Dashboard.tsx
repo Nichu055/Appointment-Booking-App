@@ -2,16 +2,10 @@ import { LogOut, User, CalendarDays } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { useState } from 'react';
+import { user } from './context/userData'; 
 
 const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
   const navigate = useNavigate();
-
-  // Mock user data
-  const user = {
-    name: 'Admin User',
-    email: 'admin@example.com',
-    avatar: 'https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff'
-  };
 
   const handleNavigate = (path: string) => {
     setLoading(true);
@@ -31,7 +25,6 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
 
   return (
     <aside className="h-screen w-60 bg-white shadow flex flex-col py-8 px-4 justify-between">
-    
       <div className="flex items-center mt-5">
         <img
           src={user.avatar}

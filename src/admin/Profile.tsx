@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Pencil, Phone, Mail, Building2, CalendarCheck2, Camera } from 'lucide-react';
 import { notifySuccess } from '../components/Notification';
+import { user } from './context/userData';
 
 const getInitials = (name: string) => {
   const parts = name.split(' ');
@@ -12,14 +13,14 @@ const getInitials = (name: string) => {
 const Profile = () => {
   const [available, setAvailable] = useState(true);
   const [profile, setProfile] = useState({
-    name: 'Jane Doe',
-    email: 'jane.doe@clinic.com',
+    name: user.name,
+    email: user.email,
     role: 'Clinic Staff',
     phone: '+1 555-123-4567',
     address: '123 Main St, Springfield',
     department: 'General Medicine',
     joined: 'Jan 10, 2022',
-    avatar: '', // base64 or url
+    avatar: user.avatar, // base64 or url
   });
   const [editing, setEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
