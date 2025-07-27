@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../notification/Notification';
 
 const staffOptions = [
@@ -17,6 +17,9 @@ const countryCodes = [
   { code: '+81', label: 'Japan (+81)' },
 ];
 
+const getRandomInt = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
 const Form = () => {
   const [form, setForm] = useState({
     name: '',
@@ -27,9 +30,32 @@ const Form = () => {
     staff: '',
     countryCode: '+1',
   });
+  const [notRobot, setNotRobot] = useState(false);
+  const [captcha, setCaptcha] = useState({ a: 0, b: 0 });
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [captchaValid, setCaptchaValid] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  useEffect(() => {
+    setCaptcha({
+      a: getRandomInt(1, 9),
+      b: getRandomInt(1, 9),
+    });
+    setCaptchaAnswer('');
+    setCaptchaValid(false);
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+    if (name === 'captchaAnswer') {
+      setCaptchaAnswer(value);
+      setCaptchaValid(Number(value) === captcha.a + captcha.b);
+    } else if (name === 'notRobot') {
+      setNotRobot(checked);
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,9 +75,13 @@ const Form = () => {
       notifyError('Please enter a valid phone number.');
       return;
     }
+    // check not a robot
+    if (!captchaValid) {
+      notifyError('Captcha failed. Please solve the challenge.');
+      return;
+    }
 
     notifySuccess('Appointment submitted successfully!');
-    
   };
 
   return (
@@ -139,6 +169,26 @@ const Form = () => {
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </select>
+      </div>
+      <div>
+        <label className="block text-gray-700 mb-1 mt-10">Verify you're not a robot</label>
+        <div className="flex items-center space-x-2 ">
+          <span className="text-gray-700 font-medium">
+            What is {captcha.a} + {captcha.b}?
+          </span>
+          <input
+            type="text"
+            name="captchaAnswer"
+            value={captchaAnswer}
+            onChange={handleChange}
+            className="border rounded px-3 py-2 w-20 focus:outline-blue-600"
+            autoComplete="off"
+            required
+          />
+        </div>
+        {!captchaValid && captchaAnswer && (
+          <span className="text-red-600 text-sm">Incorrect answer</span>
+        )}
       </div>
       <button
         type="submit"
