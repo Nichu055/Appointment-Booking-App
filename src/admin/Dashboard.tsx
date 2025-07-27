@@ -25,32 +25,34 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
 
   return (
     <aside className="h-screen w-60 bg-white shadow flex flex-col py-8 px-4 justify-between">
-      <div className="flex items-center mt-5">
-        <img
-          src={user.avatar}
-          alt="Profile"
-          className="w-14 h-14 rounded-full border-2 border-blue-200 shadow mr-3"
-        />
-        <div className="flex flex-col">
-          <span className="text-lg font-semibold text-gray-800">{user.name}</span>
-          <span className="text-sm text-gray-500">{user.email}</span>
+      <div>
+        <div className="flex items-center">
+          <img
+            src={user.avatar}
+            alt="Profile"
+            className="w-14 h-14 rounded-full border-2 border-blue-200 shadow mr-3"
+          />
+          <div className="flex flex-col">
+            <span className="text-lg font-semibold text-gray-800">{user.name}</span>
+            <span className="text-sm text-gray-500">{user.email}</span>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-4 mt-2">
-        <button
-          className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-          onClick={() => handleNavigate('/admin/dashboard/profile')}
-        >
-          <User size={20} />
-          <span>Profile</span>
-        </button>
-        <button
-          className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-          onClick={() => handleNavigate('/admin/dashboard/appointments')}
-        >
-          <CalendarDays size={20} />
-          <span>Appointments</span>
-        </button>
+        <div className="flex flex-col gap-4 mt-10">
+          <button
+            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
+            onClick={() => handleNavigate('/admin/dashboard/profile')}
+          >
+            <User size={20} />
+            <span>Profile</span>
+          </button>
+          <button
+            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
+            onClick={() => handleNavigate('/admin/dashboard/appointments')}
+          >
+            <CalendarDays size={20} />
+            <span>Appointments</span>
+          </button>
+        </div>
       </div>
       <div>
         <button
