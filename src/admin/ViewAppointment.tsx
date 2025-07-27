@@ -1,53 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { notifySuccess } from '../components/Notification';
-
-const appointments = [
-  {
-    id: '1',
-    patient: 'John Doe',
-    email: 'john@example.com',
-    phone: '+1 555-1234',
-    reason: 'Checkup',
-    datetime: '2024-06-03T10:00',
-  },
-  {
-    id: '2',
-    patient: 'Jane Smith',
-    email: 'jane@example.com',
-    phone: '+1 555-5678',
-    reason: 'Consultation',
-    datetime: '2024-06-08T14:30',
-  },
-  {
-    id: '3',
-    patient: 'Alice Johnson',
-    email: 'alice@example.com',
-    phone: '+1 555-4321',
-    reason: 'Follow-up',
-    datetime: '2024-06-15T09:00',
-  },
-  {
-    id: '4',
-    patient: 'Bob Lee',
-    email: 'bob@example.com',
-    phone: '+1 555-8765',
-    reason: 'Dental',
-    datetime: '2024-06-20T11:30',
-  },
-  {
-    id: '5',
-    patient: 'Carol King',
-    email: 'carol@example.com',
-    phone: '+1 555-6789',
-    reason: 'Consultation',
-    datetime: '2025-07-22T16:00',
-  },
-];
+import { getAppointmentById } from '../api/mockApi';
 
 const ViewAppointment = () => {
   const { id } = useParams();
-  const appointment = appointments.find(a => a.id === id);
+  const appointment = getAppointmentById(id || '');
 
   const [newDateTime, setNewDateTime] = useState(appointment?.datetime || '');
 
@@ -70,7 +28,7 @@ const ViewAppointment = () => {
       <div className="space-y-6 mb-2">
         <div className="flex items-center">
           <span className="font-semibold text-gray-700 w-44">Patient:</span>
-          <span className="text-lg text-gray-900">{appointment.patient}</span>
+          <span className="text-lg text-gray-900">{appointment.name}</span>
         </div>
         <div className="flex items-center">
           <span className="font-semibold text-gray-700 w-44">Email:</span>
