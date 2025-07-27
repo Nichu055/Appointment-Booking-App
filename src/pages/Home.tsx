@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const HomePage = () => (
   <main className="container mx-auto px-4 py-16 flex flex-col items-center">
     <h1 className="text-4xl font-extrabold text-blue-700 mb-4 text-center">
@@ -7,12 +9,12 @@ const HomePage = () => (
       Effortlessly schedule, manage, and track appointments with our modern, user-friendly platform.
       Streamline your booking process and provide a seamless experience for your clients.
     </p>
-    <a
-      href="#"
+    <Link
+      to="/form"
       className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition"
     >
       Get Started
-    </a>
+    </Link>
     <section className="mt-16 grid md:grid-cols-3 gap-8 w-full max-w-4xl">
       <div className="bg-white rounded-lg shadow p-6 text-center">
         <h2 className="text-xl font-semibold text-blue-600 mb-2">Easy Scheduling</h2>
