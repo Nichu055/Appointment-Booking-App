@@ -50,8 +50,7 @@ const Form = () => {
     if (name === 'captchaAnswer') {
       setCaptchaAnswer(value);
       setCaptchaValid(Number(value) === captcha.a + captcha.b);
-    } 
-     else {
+    }  {
       setForm({ ...form, [name]: value });
     }
   };
