@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Pencil, Phone, Mail, Building2, CalendarCheck2, Camera, Check } from 'lucide-react';
 import { notifySuccess, notifyError } from '../components/Notification';
-import { user } from './context/userData';
+import { getCurrentUser, updateCurrentUser } from '../api/mockApi';
 
 const getInitials = (name: string) => {
   const parts = name.split(' ');
@@ -14,24 +14,32 @@ const countryCodes = [
   { code: '+1', label: 'US/Canada' },
   { code: '+44', label: 'UK' },
   { code: '+91', label: 'India' },
-  // ...add more as needed
 ];
 
 const Profile = () => {
   const [available, setAvailable] = useState(true);
   const [countryCode, setCountryCode] = useState('+1');
   const [profile, setProfile] = useState({
-    name: user.name,
-    email: user.email,
-    role: 'Clinic Staff',
-    phone: '555-123-4567', // Remove country code from initial value
-    address: '123 Main St, Springfield',
-    department: 'General Medicine',
-    joined: 'Jan 10, 2022',
-    avatar: user.avatar, // base64 or url
+    name: '',
+    email: '',
+    role: '',
+    phone: '',
+    address: '',
+    department: '',
+    joined: '',
+    avatar: '',
+    countryCode: '+1',
   });
   const [editing, setEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      setProfile(user);
+      setCountryCode(user.countryCode || '+1');
+    }
+  }, []);
 
   const handleToggle = () => {
     if (!available) {
@@ -48,6 +56,7 @@ const Profile = () => {
 
   const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCountryCode(e.target.value);
+    setProfile(prev => ({ ...prev, countryCode: e.target.value }));
   };
 
   const validateProfile = () => {
@@ -63,13 +72,14 @@ const Profile = () => {
       notifyError('Phone number is required.');
       return false;
     }
-    // Add more validation as needed
+
     return true;
   };
 
   const handleEdit = () => {
     if (editing) {
       if (!validateProfile()) return;
+      updateCurrentUser(profile);
       notifySuccess('Profile updated!');
     }
     setEditing((prev) => !prev);
@@ -81,6 +91,7 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onload = () => {
         setProfile((prev) => ({ ...prev, avatar: reader.result as string }));
+        updateCurrentUser({ avatar: reader.result as string });
         notifySuccess('Profile picture updated!');
       };
       reader.readAsDataURL(file);
