@@ -8,6 +8,7 @@ import AdminProfile from './admin/Profile';
 import AdminAppointments from './admin/Appointments';
 import ViewAppointment from './admin/ViewAppointment';
 import NotFound from './pages/NotFound';
+import Notification from './components/Notification';
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Notification />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

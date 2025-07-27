@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Pencil, Phone, Mail, Building2, CalendarCheck2, Camera, Check } from 'lucide-react';
-import { notifySuccess } from '../components/Notification';
+import { notifySuccess, notifyError } from '../components/Notification';
 import { user } from './context/userData';
 
 const getInitials = (name: string) => {
@@ -26,17 +26,41 @@ const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleToggle = () => {
-    setAvailable((prev) => !prev);
-    notifySuccess(`You are now marked as ${!available ? 'available' : 'unavailable'}.`);
+    if (!available) {
+      notifySuccess('You are now marked as available.');
+    } else {
+      notifyError('You are now marked as unavailable.');
+    }
+    setAvailable(!available);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
+  const validateProfile = () => {
+    if (!profile.name.trim()) {
+      notifyError('Name is required.');
+      return false;
+    }
+    if (!profile.email.trim() || !profile.email.includes('@')) {
+      notifyError('Valid email is required.');
+      return false;
+    }
+    if (!profile.phone.trim()) {
+      notifyError('Phone number is required.');
+      return false;
+    }
+    // Add more validation as needed
+    return true;
+  };
+
   const handleEdit = () => {
+    if (editing) {
+      if (!validateProfile()) return;
+      notifySuccess('Profile updated!');
+    }
     setEditing((prev) => !prev);
-    if (editing) notifySuccess('Profile updated!');
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
