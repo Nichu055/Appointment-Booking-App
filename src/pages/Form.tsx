@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../components/Notification';
+import Loader from '../components/Loader';
 
 const staffOptions = [
   { value: '', label: 'No preference' },
@@ -33,6 +34,7 @@ const Form = () => {
   const [captcha, setCaptcha] = useState({ a: 0, b: 0 });
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [captchaValid, setCaptchaValid] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setCaptcha({
@@ -57,28 +59,32 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // validation checks
-    if (!form.name || !form.datetime || !form.reason || !form.phone || !form.email) {
-      notifyError('Please fill in all required fields.');
-      return;
-    }
-    // check valid email format
-    if (!/\S+@\S+\.\S+/.test(form.email)) {
-      notifyError('Please enter a valid email address.');
-      return;
-    }
-    // check phone number length
-    if (form.phone.length < 7) {
-      notifyError('Please enter a valid phone number.');
-      return;
-    }
-    // check not a robot
-    if (!captchaValid) {
-      notifyError('Captcha failed. Please solve the challenge.');
-      return;
-    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      // validation checks
+      if (!form.name || !form.datetime || !form.reason || !form.phone || !form.email) {
+        notifyError('Please fill in all required fields.');
+        return;
+      }
+      // check valid email format
+      if (!/\S+@\S+\.\S+/.test(form.email)) {
+        notifyError('Please enter a valid email address.');
+        return;
+      }
+      // check phone number length
+      if (form.phone.length < 7) {
+        notifyError('Please enter a valid phone number.');
+        return;
+      }
+      // check not a robot
+      if (!captchaValid) {
+        notifyError('Captcha failed. Please solve the challenge.');
+        return;
+      }
 
-    notifySuccess('Appointment submitted successfully!');
+      notifySuccess('Appointment submitted successfully!');
+    }, 1200);
   };
 
   return (
@@ -183,9 +189,10 @@ const Form = () => {
       </div>
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        className={`w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
+        disabled={loading}
       >
-        Submit
+        {loading ? <Loader size={20} /> : 'Submit'}
       </button>
     </form>
   );
