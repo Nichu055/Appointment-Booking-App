@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 const Login = () => {
   const [form, setForm] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,14 +55,24 @@ const Login = () => {
           </div>
           <div>
             <label className="block text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-              disabled={loading}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2 focus:outline-blue-600 pr-10"
+                disabled={loading}
+              />
+              <button
+                type="button"
+                className="absolute right-2 top-2 text-blue-600 text-sm focus:outline-none"
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={-1}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </div>
           <button
             type="submit"
