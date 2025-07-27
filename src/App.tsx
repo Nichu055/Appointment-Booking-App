@@ -5,6 +5,8 @@ import Form from './pages/Form';
 import AdminLogin from './admin/Login';
 import AdminDashboard from './admin/Dashboard';
 import AdminProfile from './admin/Profile';
+import AdminAppointments from './admin/Appointments';
+import ViewAppointment from './admin/ViewAppointment';
 import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
@@ -32,6 +34,15 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <AdminProfile />,
       },
+      {
+        path: 'appointments',
+        element: <AdminAppointments />,
+      },
+      {
+        path: 'view/:id',
+        element: <ViewAppointment />,
+      }
+
     ],
   },
   {
