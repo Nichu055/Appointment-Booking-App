@@ -94,7 +94,6 @@ const Form = () => {
           value={form.name}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          
         />
       </div>
       <div>
@@ -105,7 +104,6 @@ const Form = () => {
           value={form.datetime}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          
         />
       </div>
       <div>
@@ -116,7 +114,6 @@ const Form = () => {
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           rows={3}
-          
         />
       </div>
       <div>
@@ -138,7 +135,6 @@ const Form = () => {
             value={form.phone}
             onChange={handleChange}
             className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-            
             placeholder="Phone number"
           />
         </div>
@@ -151,7 +147,6 @@ const Form = () => {
           value={form.email}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          
         />
       </div>
       <div>
@@ -180,7 +175,6 @@ const Form = () => {
             onChange={handleChange}
             className="border rounded px-3 py-2 w-20 focus:outline-blue-600"
             autoComplete="off"
-            required
           />
         </div>
         {!captchaValid && captchaAnswer && (
