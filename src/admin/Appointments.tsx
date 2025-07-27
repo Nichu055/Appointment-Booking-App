@@ -64,6 +64,7 @@ const Appointments = () => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [selectedDate, setSelectedDate] = useState(today.toISOString().slice(0, 10)); // YYYY-MM-DD
 
   const dates = getDatesOfMonth(currentYear, currentMonth);
 
@@ -140,13 +141,19 @@ const Appointments = () => {
         ))}
         {dates.map(date => {
           const appointment = getAppointmentForDate(date);
+          const dateStr = date.toISOString().slice(0, 10);
+          const isSelected = dateStr === selectedDate;
           return (
             <div
               key={date.toISOString()}
               className={`h-14 flex flex-col items-center justify-center border rounded cursor-pointer relative
                 ${appointment ? 'border-green-500' : 'border-gray-200'}
+                ${isSelected ? 'bg-blue-100 border-blue-600' : ''}
                 hover:bg-blue-50`}
-              onClick={() => appointment && navigate(`/admin/dashboard/view/${appointment.id}`)}
+              onClick={() => {
+                setSelectedDate(dateStr);
+                if (appointment) navigate(`/admin/dashboard/view/${appointment.id}`);
+              }}
             >
               <span className="font-bold">{date.getDate()}</span>
               {appointment && (
