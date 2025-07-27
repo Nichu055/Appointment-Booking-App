@@ -10,13 +10,21 @@ const getInitials = (name: string) => {
     : parts[0][0].toUpperCase();
 };
 
+const countryCodes = [
+  { code: '+1', label: 'US/Canada' },
+  { code: '+44', label: 'UK' },
+  { code: '+91', label: 'India' },
+  // ...add more as needed
+];
+
 const Profile = () => {
   const [available, setAvailable] = useState(true);
+  const [countryCode, setCountryCode] = useState('+1');
   const [profile, setProfile] = useState({
     name: user.name,
     email: user.email,
     role: 'Clinic Staff',
-    phone: '+1 555-123-4567',
+    phone: '555-123-4567', // Remove country code from initial value
     address: '123 Main St, Springfield',
     department: 'General Medicine',
     joined: 'Jan 10, 2022',
@@ -36,6 +44,10 @@ const Profile = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+
+  const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCountryCode(e.target.value);
   };
 
   const validateProfile = () => {
@@ -161,14 +173,31 @@ const Profile = () => {
           <label className="flex items-center gap-2 text-gray-700 font-semibold mb-1">
             <Phone size={18} /> Phone
           </label>
-          <input
-            type="text"
-            name="phone"
-            value={profile.phone}
-            onChange={handleChange}
-            disabled={!editing}
-            className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          />
+          <div className="relative flex items-center">
+            <select
+              value={countryCode}
+              onChange={handleCountryCodeChange}
+              disabled={!editing}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent pr-6 text-gray-700 focus:outline-blue-600"
+              style={{ minWidth: '70px' }}
+            >
+              {countryCodes.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              name="phone"
+              value={profile.phone}
+              onChange={handleChange}
+              disabled={!editing}
+              className="w-full border px-20 py-2 focus:outline-blue-600"
+              placeholder="Phone number"
+              style={{ paddingLeft: '80px' }}
+            />
+          </div>
         </div>
         <div>
           <label className="flex items-center gap-2 text-gray-700 font-semibold mb-1">
