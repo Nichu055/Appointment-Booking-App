@@ -1,10 +1,20 @@
 import { useState } from 'react';
+import { notifySuccess, notifyError } from '../notification/Notification';
 
 const staffOptions = [
   { value: '', label: 'No preference' },
   { value: 'dr-smith', label: 'Dr. Smith' },
   { value: 'nurse-jane', label: 'Nurse Jane' },
   { value: 'dr-lee', label: 'Dr. Lee' },
+];
+
+const countryCodes = [
+  { code: '+1', label: 'US/Canada (+1)' },
+  { code: '+44', label: 'UK (+44)' },
+  { code: '+234', label: 'Nigeria (+234)' },
+  { code: '+91', label: 'India (+91)' },
+  { code: '+61', label: 'Australia (+61)' },
+  { code: '+81', label: 'Japan (+81)' },
 ];
 
 const Form = () => {
@@ -15,6 +25,7 @@ const Form = () => {
     phone: '',
     email: '',
     staff: '',
+    countryCode: '+1',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -23,7 +34,24 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // handle form submission logic here
+    // validation checks
+    if (!form.name || !form.datetime || !form.reason || !form.phone || !form.email) {
+      notifyError('Please fill in all required fields.');
+      return;
+    }
+    // check valid email format
+    if (!/\S+@\S+\.\S+/.test(form.email)) {
+      notifyError('Please enter a valid email address.');
+      return;
+    }
+    // check phone number length
+    if (form.phone.length < 7) {
+      notifyError('Please enter a valid phone number.');
+      return;
+    }
+
+    notifySuccess('Appointment submitted successfully!');
+    
   };
 
   return (
@@ -65,15 +93,28 @@ const Form = () => {
         />
       </div>
       <div>
-        <label className="block text-gray-700 mb-1">Phone Number</label>
-        <input
-          type="tel"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          required
-        />
+        <label className="block text-gray-700 mb-1 focus:outline-blue-600">Phone Number</label>
+        <div className="flex space-x-2">
+          <select
+            name="countryCode"
+            value={form.countryCode}
+            onChange={handleChange}
+            className="border rounded px-3 py-2 focus:outline-blue-600"
+          >
+            {countryCodes.map((c) => (
+              <option key={c.code} value={c.code}>{c.label}</option>
+            ))}
+          </select>
+          <input
+            type="tel"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2 focus:outline-blue-600"
+            required
+            placeholder="Phone number"
+          />
+        </div>
       </div>
       <div>
         <label className="block text-gray-700 mb-1">Email</label>
