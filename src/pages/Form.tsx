@@ -30,7 +30,6 @@ const Form = () => {
     staff: '',
     countryCode: '+1',
   });
-  const [notRobot, setNotRobot] = useState(false);
   const [captcha, setCaptcha] = useState({ a: 0, b: 0 });
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [captchaValid, setCaptchaValid] = useState(false);
@@ -47,13 +46,12 @@ const Form = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     if (name === 'captchaAnswer') {
       setCaptchaAnswer(value);
       setCaptchaValid(Number(value) === captcha.a + captcha.b);
-    } else if (name === 'notRobot') {
-      setNotRobot(checked);
-    } else {
+    } 
+     else {
       setForm({ ...form, [name]: value });
     }
   };
