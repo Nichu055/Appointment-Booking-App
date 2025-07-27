@@ -115,28 +115,6 @@ const Form = () => {
             placeholder="Phone number"
           />
         </div>
-        <label className="block text-gray-700 mb-1 focus:outline-blue-600">Phone Number</label>
-        <div className="flex space-x-2">
-          <select
-            name="countryCode"
-            value={form.countryCode}
-            onChange={handleChange}
-            className="border rounded px-3 py-2 focus:outline-blue-600"
-          >
-            {countryCodes.map((c) => (
-              <option key={c.code} value={c.code}>{c.label}</option>
-            ))}
-          </select>
-          <input
-            type="tel"
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-            required
-            placeholder="Phone number"
-          />
-        </div>
       </div>
       <div>
         <label className="block text-gray-700 mb-1">Email</label>
