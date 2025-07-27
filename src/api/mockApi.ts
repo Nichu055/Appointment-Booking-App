@@ -9,12 +9,24 @@ type Appointment = {
   countryCode: string;
 };
 
-const appointments: Appointment[] = [];
+const STORAGE_KEY = 'appointments';
+
+function loadAppointments(): Appointment[] {
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+function saveAppointments() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appointments));
+}
+
+const appointments: Appointment[] = loadAppointments();
 
 export function addAppointment(data: Omit<Appointment, 'id'>): Appointment {
   const id = (appointments.length + 1).toString();
   const appointment = { id, ...data };
   appointments.push(appointment);
+  saveAppointments();
   return appointment;
 }
 
