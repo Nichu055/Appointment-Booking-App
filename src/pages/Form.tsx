@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../components/Notification';
 import Loader from '../components/Loader';
+import { addAppointment } from '../api/mockApi';
 
 const staffOptions = [
   { value: '', label: 'No preference' },
@@ -83,7 +84,24 @@ const Form = () => {
         return;
       }
 
+      addAppointment(form); // Save to mock API
       notifySuccess('Appointment submitted successfully!');
+      setForm({
+        name: '',
+        datetime: '',
+        reason: '',
+        phone: '',
+        email: '',
+        staff: '',
+        countryCode: '+1',
+      });
+      // Optionally, reset captcha
+      setCaptcha({
+        a: getRandomInt(1, 9),
+        b: getRandomInt(1, 9),
+      });
+      setCaptchaAnswer('');
+      setCaptchaValid(false);
     }, 1200);
   };
 
