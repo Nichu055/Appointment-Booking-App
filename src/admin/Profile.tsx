@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Pencil, Phone, Mail, Building2, CalendarCheck2, Camera } from 'lucide-react';
+import { Pencil, Phone, Mail, Building2, CalendarCheck2, Camera, Check } from 'lucide-react';
 import { notifySuccess } from '../components/Notification';
 import { user } from './context/userData';
 
@@ -52,8 +52,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow p-8 mt-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="w-full bg-white rounded-lg shadow p-8">
+      <div className="flex items-center justify-between">
         <div className="relative flex-shrink-0 mr-6 flex flex-col items-center">
           <div className="relative">
             {profile.avatar ? (
@@ -101,7 +101,7 @@ const Profile = () => {
             onClick={handleEdit}
             className="flex items-center gap-2 px-5 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
           >
-            <Pencil size={18} />
+            {editing ? <Check size={18} /> : <Pencil size={18} />}
             {editing ? 'Save Profile' : 'Edit Profile'}
           </button>
         </div>
@@ -186,7 +186,7 @@ const Profile = () => {
           />
         </div>
         <div>
-          <label className="flex items-center gap-2 text-gray-700 font-semibold mb-1">
+          <label className="flex items-center gap-2 text-gray-700 font-semibold">
             Role
           </label>
           <input
