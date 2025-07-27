@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
 import RootLayout from './components/Layout/RootLayout';
+import Home from './pages/Home';
+import Form from './pages/Form';
 
 const router = createBrowserRouter([
   {
@@ -9,7 +10,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-      },
+      },{
+        path: '/form',
+        element: <Form />,
+      }
     ],
   },
 ]);
