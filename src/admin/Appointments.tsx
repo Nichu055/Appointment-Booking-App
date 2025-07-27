@@ -1,53 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-const appointments = [
-  {
-    id: '1',
-    date: '2024-06-03',
-    patient: 'John Doe',
-    email: 'john@example.com',
-    phone: '+1 555-1234',
-    reason: 'Checkup',
-    datetime: '2024-06-03T10:00',
-  },
-  {
-    id: '2',
-    date: '2024-06-08',
-    patient: 'Jane Smith',
-    email: 'jane@example.com',
-    phone: '+1 555-5678',
-    reason: 'Consultation',
-    datetime: '2024-06-08T14:30',
-  },
-  {
-    id: '3',
-    date: '2024-06-15',
-    patient: 'Alice Johnson',
-    email: 'alice@example.com',
-    phone: '+1 555-4321',
-    reason: 'Follow-up',
-    datetime: '2024-06-15T09:00',
-  },
-  {
-    id: '4',
-    date: '2024-06-20',
-    patient: 'Bob Lee',
-    email: 'bob@example.com',
-    phone: '+1 555-8765',
-    reason: 'Dental',
-    datetime: '2024-06-20T11:30',
-  },
-  {
-    id: '5',
-    date: '2025-07-22',
-    patient: 'Carol King',
-    email: 'carol@example.com',
-    phone: '+1 555-6789',
-    reason: 'Consultation',
-    datetime: '2025-07-22T16:00',
-  },
-];
+import { getAppointments } from '../api/mockApi';
 
 function getDatesOfMonth(year: number, month: number) {
   const dates = [];
@@ -65,6 +18,8 @@ const Appointments = () => {
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState(today.toISOString().slice(0, 10)); // YYYY-MM-DD
+
+  const appointments = getAppointments(); // Use mock API
 
   const dates = getDatesOfMonth(currentYear, currentMonth);
 
@@ -87,7 +42,7 @@ const Appointments = () => {
   };
 
   const getAppointmentForDate = (date: Date) =>
-    appointments.find(a => a.date === date.toISOString().slice(0, 10));
+    appointments.find(a => a.datetime.slice(0, 10) === date.toISOString().slice(0, 10));
 
   return (
     <div className="w-full bg-white rounded-lg shadow p-8">
