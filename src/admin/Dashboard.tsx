@@ -1,5 +1,5 @@
 import { LogOut, User, CalendarDays } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { useState } from 'react';
 
@@ -23,8 +23,8 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
   };
 
   return (
-    <aside className="h-screen w-64 bg-white shadow flex flex-col py-8 px-4 justify-between">
-      <div className="flex flex-col gap-6">
+    <aside className="h-screen w-60 bg-white shadow flex flex-col py-8 px-4 justify-between">
+      <div className="flex flex-col gap-4 mt-10">
         <button
           className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
           onClick={() => handleNavigate('/admin/profile')}
@@ -55,6 +55,7 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="flex min-h-screen">
@@ -65,8 +66,11 @@ const Dashboard = () => {
         ) : (
           <>
             
-            <h1 className="text-2xl font-bold text-blue-700 mb-4">Admin Dashboard</h1>
-            
+            {location.pathname === '/admin/profile' ? (
+              <Outlet />
+            ) : (
+              <h1 className="text-2xl font-bold text-blue-700 mb-4">Admin Dashboard</h1>
+            )}
           </>
         )}
       </main>
