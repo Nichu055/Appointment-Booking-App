@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { notifySuccess, notifyError } from '../notification/Notification';
+import { notifySuccess, notifyError } from '../components/Notification';
 
 const staffOptions = [
   { value: '', label: 'No preference' },
