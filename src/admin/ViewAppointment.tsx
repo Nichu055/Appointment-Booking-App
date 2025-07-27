@@ -9,7 +9,7 @@ const appointments = [
     email: 'john@example.com',
     phone: '+1 555-1234',
     reason: 'Checkup',
-    datetime: '2024-06-20T10:00',
+    datetime: '2024-06-03T10:00',
   },
   {
     id: '2',
@@ -17,7 +17,31 @@ const appointments = [
     email: 'jane@example.com',
     phone: '+1 555-5678',
     reason: 'Consultation',
-    datetime: '2024-06-22T14:30',
+    datetime: '2024-06-08T14:30',
+  },
+  {
+    id: '3',
+    patient: 'Alice Johnson',
+    email: 'alice@example.com',
+    phone: '+1 555-4321',
+    reason: 'Follow-up',
+    datetime: '2024-06-15T09:00',
+  },
+  {
+    id: '4',
+    patient: 'Bob Lee',
+    email: 'bob@example.com',
+    phone: '+1 555-8765',
+    reason: 'Dental',
+    datetime: '2024-06-20T11:30',
+  },
+  {
+    id: '5',
+    patient: 'Carol King',
+    email: 'carol@example.com',
+    phone: '+1 555-6789',
+    reason: 'Consultation',
+    datetime: '2025-07-22T16:00',
   },
 ];
 
