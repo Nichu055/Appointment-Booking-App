@@ -67,7 +67,7 @@ const Form = () => {
           value={form.name}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          required
+          
         />
       </div>
       <div>
@@ -78,7 +78,7 @@ const Form = () => {
           value={form.datetime}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          required
+          
         />
       </div>
       <div>
@@ -89,7 +89,7 @@ const Form = () => {
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           rows={3}
-          required
+          
         />
       </div>
       <div>
@@ -111,7 +111,7 @@ const Form = () => {
             value={form.phone}
             onChange={handleChange}
             className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-            required
+            
             placeholder="Phone number"
           />
         </div>
@@ -124,7 +124,7 @@ const Form = () => {
           value={form.email}
           onChange={handleChange}
           className="w-full border rounded px-3 py-2 focus:outline-blue-600"
-          required
+          
         />
       </div>
       <div>
