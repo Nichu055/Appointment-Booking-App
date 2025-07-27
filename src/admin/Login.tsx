@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { notifyError, notifySuccess } from '../components/Notification';
 import Loader from '../components/Loader';
+import { login } from '../api/mockApi';
 
 const Login = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -20,16 +21,15 @@ const Login = () => {
       return;
     }
     setLoading(true);
-    // Simulate login process
-    setTimeout(() => {
+    login(form.username, form.password).then(profile => {
       setLoading(false);
-      if (form.username === 'admin' && form.password === 'password123') {
+      if (profile) {
         notifySuccess('Login successful!');
         navigate('/admin/dashboard');
       } else {
         notifyError('Invalid username or password.');
       }
-    }, 1200);
+    });
   };
 
   return (
