@@ -58,34 +58,49 @@ const ViewAppointment = () => {
 
   if (!appointment) {
     return (
-      <div className="max-w-md mx-auto bg-white rounded shadow p-8 mt-8 text-center">
-        <h2 className="text-xl font-bold text-red-600 mb-4">Appointment not found</h2>
+      <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-12 mt-16 text-center border border-red-200">
+        <h2 className="text-2xl font-extrabold text-red-600 mb-6">Appointment not found</h2>
       </div>
     );
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-2xl font-bold text-blue-700 mb-4">Appointment Details</h2>
-      <div className="space-y-3 mb-6">
-        <div><span className="font-semibold">Patient:</span> {appointment.patient}</div>
-        <div><span className="font-semibold">Email:</span> {appointment.email}</div>
-        <div><span className="font-semibold">Phone:</span> {appointment.phone}</div>
-        <div><span className="font-semibold">Reason for Visit:</span> {appointment.reason}</div>
-        <div><span className="font-semibold">Date/Time:</span> {appointment.datetime}</div>
+    <div className="max-w-xl mx-auto bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-2xl p-12 border border-blue-200">
+      <h2 className="text-3xl font-extrabold text-blue-800 mb-8 tracking-tight text-center">Appointment Details</h2>
+      <div className="space-y-6 mb-2">
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Patient:</span>
+          <span className="text-lg text-gray-900">{appointment.patient}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Email:</span>
+          <span className="text-lg text-gray-900">{appointment.email}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Phone:</span>
+          <span className="text-lg text-gray-900">{appointment.phone}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Reason for Visit:</span>
+          <span className="text-lg text-gray-900">{appointment.reason}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Date/Time:</span>
+          <span className="text-lg text-gray-900">{appointment.datetime}</span>
+        </div>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-1 font-semibold">Reschedule Date/Time</label>
+      <div className="mb-8">
+        <label className="block text-gray-700 mb-2 font-semibold text-lg">Reschedule Date/Time</label>
         <input
           type="datetime-local"
           value={newDateTime}
           onChange={e => setNewDateTime(e.target.value)}
-          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
+          className="w-full border-2 border-blue-300 rounded-lg px-4 py-3 focus:outline-blue-600 text-lg shadow-sm transition"
         />
       </div>
       <button
         onClick={handleReschedule}
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold text-lg shadow hover:bg-blue-800 transition"
       >
         Reschedule
       </button>
