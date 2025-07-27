@@ -1,8 +1,8 @@
 import { LogOut, User, CalendarDays, Menu } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { useState } from 'react';
-import { user } from './context/userData'; 
+import { useState } from 'react'; 
+import { getCurrentUser } from '../api/mockApi';
 
 const Sidebar = ({
   setLoading,
@@ -14,6 +14,7 @@ const Sidebar = ({
   onClose: () => void;
 }) => {
   const navigate = useNavigate();
+  const user = getCurrentUser();
 
   const handleNavigate = (path: string) => {
     setLoading(true);
@@ -46,13 +47,13 @@ const Sidebar = ({
         <div>
           <div className="flex items-center">
             <img
-              src={user.avatar}
+              src={user?.avatar}
               alt="Profile"
               className="w-14 h-14 rounded-full border-2 border-blue-200 shadow mr-3"
             />
             <div className="flex flex-col">
-              <span className="text-lg font-semibold text-gray-800">{user.name}</span>
-              <span className="text-sm text-gray-500">{user.email}</span>
+              <span className="text-lg font-semibold text-gray-800">{user?.name}</span>
+              <span className="text-sm text-gray-500">{user?.email}</span>
             </div>
           </div>
           <div className="flex flex-col gap-4 mt-10">
