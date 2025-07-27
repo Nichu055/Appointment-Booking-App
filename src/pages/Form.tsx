@@ -38,7 +38,7 @@ const Form = () => {
           name="name"
           value={form.name}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           required
         />
       </div>
@@ -49,7 +49,7 @@ const Form = () => {
           name="datetime"
           value={form.datetime}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           required
         />
       </div>
@@ -59,7 +59,7 @@ const Form = () => {
           name="reason"
           value={form.reason}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           rows={3}
           required
         />
@@ -71,7 +71,7 @@ const Form = () => {
           name="phone"
           value={form.phone}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           required
         />
       </div>
@@ -82,7 +82,7 @@ const Form = () => {
           name="email"
           value={form.email}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
           required
         />
       </div>
@@ -92,7 +92,7 @@ const Form = () => {
           name="staff"
           value={form.staff}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 focus:outline-blue-600"
         >
           {staffOptions.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
