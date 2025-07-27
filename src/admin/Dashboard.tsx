@@ -1,10 +1,18 @@
-import { LogOut, User, CalendarDays } from 'lucide-react';
+import { LogOut, User, CalendarDays, Menu } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { useState } from 'react';
 import { user } from './context/userData'; 
 
-const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
+const Sidebar = ({
+  setLoading,
+  isOpen,
+  onClose,
+}: {
+  setLoading: (v: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
@@ -24,59 +32,95 @@ const Sidebar = ({ setLoading }: { setLoading: (v: boolean) => void }) => {
   };
 
   return (
-    <aside className="h-screen w-60 bg-white shadow flex flex-col py-8 px-4 justify-between">
-      <div>
-        <div className="flex items-center">
-          <img
-            src={user.avatar}
-            alt="Profile"
-            className="w-14 h-14 rounded-full border-2 border-blue-200 shadow mr-3"
-          />
-          <div className="flex flex-col">
-            <span className="text-lg font-semibold text-gray-800">{user.name}</span>
-            <span className="text-sm text-gray-500">{user.email}</span>
+    <>
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-30 z-40 md:hidden transition-opacity ${
+          isOpen ? 'block' : 'hidden'
+        }`}
+        onClick={onClose}
+      />
+      <aside
+        className={`fixed z-50 top-0 left-0 h-full w-64 bg-white shadow flex flex-col py-8 px-4 justify-between transition-transform duration-300
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:static md:translate-x-0 md:h-screen md:w-60`}
+      >
+        <div>
+          <div className="flex items-center">
+            <img
+              src={user.avatar}
+              alt="Profile"
+              className="w-14 h-14 rounded-full border-2 border-blue-200 shadow mr-3"
+            />
+            <div className="flex flex-col">
+              <span className="text-lg font-semibold text-gray-800">{user.name}</span>
+              <span className="text-sm text-gray-500">{user.email}</span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 mt-10">
+            <button
+              className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
+              onClick={() => {
+                handleNavigate('/admin/dashboard/profile');
+                onClose();
+              }}
+            >
+              <User size={20} />
+              <span>Profile</span>
+            </button>
+            <button
+              className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
+              onClick={() => {
+                handleNavigate('/admin/dashboard/appointments');
+                onClose();
+              }}
+            >
+              <CalendarDays size={20} />
+              <span>Appointments</span>
+            </button>
           </div>
         </div>
-        <div className="flex flex-col gap-4 mt-10">
+        <div>
           <button
-            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-            onClick={() => handleNavigate('/admin/dashboard/profile')}
+            className="flex items-center gap-3 text-gray-700 hover:text-red-600 py-2"
+            onClick={() => {
+              handleLogout();
+              onClose();
+            }}
           >
-            <User size={20} />
-            <span>Profile</span>
-          </button>
-          <button
-            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
-            onClick={() => handleNavigate('/admin/dashboard/appointments')}
-          >
-            <CalendarDays size={20} />
-            <span>Appointments</span>
+            <LogOut size={20} />
+            <span>Logout</span>
           </button>
         </div>
-      </div>
-      <div>
+        {/* Close button for mobile */}
         <button
-          className="flex items-center gap-3 text-gray-700 hover:text-red-600 py-2"
-          onClick={handleLogout}
+          className="absolute top-4 right-4 md:hidden text-gray-500 hover:text-gray-800"
+          onClick={onClose}
         >
-          <LogOut size={20} />
-          <span>Logout</span>
+          ✕
         </button>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
   const isDashboardRoot = location.pathname === '/admin/dashboard';
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar setLoading={setLoading} />
-      <main className="flex-1 bg-blue-50 p-8 flex items-center justify-center">
+    <div className="flex min-h-screen bg-blue-50">
+      {/* Hamburger menu for mobile */}
+      <button
+        className="fixed top-4 left-4 z-50 md:hidden bg-white p-2 rounded shadow"
+        onClick={() => setSidebarOpen(true)}
+        aria-label="Open sidebar"
+      >
+        <Menu size={28} />
+      </button>
+      <Sidebar setLoading={setLoading} isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <main className="flex-1 p-4 md:p-8 flex items-center justify-center overflow-auto">
         {loading ? (
           <Loader size={48} />
         ) : (
