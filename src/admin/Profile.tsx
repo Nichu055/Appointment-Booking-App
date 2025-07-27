@@ -113,7 +113,7 @@ const Profile = () => {
         <div className="flex flex-col md:flex-row items-center gap-4">
           <button
             onClick={handleToggle}
-            className={`px-6 py-2 rounded font-semibold transition ${
+            className={`px-6 py-2 rounded-full font-semibold transition ${
               available
                 ? 'bg-green-500 text-white hover:bg-green-600'
                 : 'bg-red-500 text-white hover:bg-red-600'
@@ -123,7 +123,7 @@ const Profile = () => {
           </button>
           <button
             onClick={handleEdit}
-            className="flex items-center gap-2 px-5 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+            className="flex items-center gap-2 px-5 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition"
           >
             {editing ? <Check size={18} /> : <Pencil size={18} />}
             {editing ? 'Save Profile' : 'Edit Profile'}
