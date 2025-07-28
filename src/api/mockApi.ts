@@ -69,25 +69,6 @@ type UserProfile = {
 
 const USER_KEY = 'currentUser';
 
-// Mock user database
-const mockUsers: { username: string; password: string; profile: UserProfile }[] = [
-  {
-    username: 'admin',
-    password: 'admin123',
-    profile: {
-      name: 'Admin User',
-      email: 'admin@example.com',
-      avatar: 'https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff',
-      role: 'Clinic Staff',
-      phone: '555-123-4567',
-      address: '123 Main St, Springfield',
-      department: 'General Medicine',
-      joined: 'Jan 10, 2022',
-      countryCode: '+1',
-    },
-  },
-];
-
 export function login(username: string, password: string): Promise<UserProfile | null> {
   return new Promise((resolve) => {
     const user = mockUsers.find(u => u.username === username && u.password === password);
@@ -111,4 +92,76 @@ export function updateCurrentUser(profile: Partial<UserProfile>) {
     const updated = { ...current, ...profile };
     localStorage.setItem(USER_KEY, JSON.stringify(updated));
   }
+}
+
+//mock data for clinic staff
+type ClinicStaff = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  role: string;
+  phone: string;
+  address: string;
+  department: string;
+  joined: string;
+  countryCode: string;
+  username: string;
+  password: string;
+};
+
+const clinicStaffDb: ClinicStaff[] = [
+  {
+    id: 'dr-smith',
+    name: 'Dr. John Smith',
+    email: 'dr.smith@clinic.com',
+    avatar: 'https://ui-avatars.com/api/?name=John+Smith&background=0D8ABC&color=fff',
+    role: 'Doctor',
+    phone: '555-111-2222',
+    address: '101 Health Ave, Springfield',
+    department: 'General Medicine',
+    joined: 'Feb 15, 2020',
+    countryCode: '+1',
+    username: 'dr-smith',
+    password: 'smith123',
+  },
+  {
+    id: 'nurse-jane',
+    name: 'Nurse Jane Doe',
+    email: 'nurse.jane@clinic.com',
+    avatar: 'https://ui-avatars.com/api/?name=Jane+Doe&background=0D8ABC&color=fff',
+    role: 'Nurse',
+    phone: '555-333-4444',
+    address: '202 Wellness Rd, Springfield',
+    department: 'Pediatrics',
+    joined: 'May 22, 2021',
+    countryCode: '+1',
+    username: 'nurse-jane',
+    password: 'jane123',
+  },
+  {
+    id: 'dr-lee',
+    name: 'Dr. Alice Lee',
+    email: 'dr.lee@clinic.com',
+    avatar: 'https://ui-avatars.com/api/?name=Alice+Lee&background=0D8ABC&color=fff',
+    role: 'Doctor',
+    phone: '555-555-6666',
+    address: '303 Care Blvd, Springfield',
+    department: 'Dermatology',
+    joined: 'Aug 10, 2019',
+    countryCode: '+1',
+    username: 'dr-lee',
+    password: 'lee123',
+  },
+];
+
+// Update mockUsers to match clinicStaffDb
+const mockUsers: { username: string; password: string; profile: ClinicStaff }[] = clinicStaffDb.map(staff => ({
+  username: staff.username,
+  password: staff.password,
+  profile: staff,
+}));
+
+export function getClinicStaff(): ClinicStaff[] {
+  return [...clinicStaffDb];
 }
