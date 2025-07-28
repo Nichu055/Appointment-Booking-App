@@ -25,7 +25,7 @@ const Login = () => {
       setLoading(false);
       if (profile) {
         notifySuccess('Login successful!');
-        navigate('/admin/dashboard');
+        navigate('/clinic/dashboard');
       } else {
         notifyError('Invalid username or password.');
       }

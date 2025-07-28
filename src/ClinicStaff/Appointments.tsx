@@ -107,7 +107,7 @@ const Appointments = () => {
                 hover:bg-blue-50`}
               onClick={() => {
                 setSelectedDate(dateStr);
-                if (appointment) navigate(`/admin/dashboard/view/${appointment.id}`);
+                if (appointment) navigate(`/clinic/dashboard/view/${appointment.id}`);
               }}
             >
               <span className="font-bold">{date.getDate()}</span>
