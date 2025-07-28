@@ -1,14 +1,7 @@
 import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../components/Notification';
 import Loader from '../components/Loader';
-import { addAppointment } from '../api/mockApi';
-
-const staffOptions = [
-  { value: '', label: 'No preference' },
-  { value: 'dr-smith', label: 'Dr. Smith' },
-  { value: 'nurse-jane', label: 'Nurse Jane' },
-  { value: 'dr-lee', label: 'Dr. Lee' },
-];
+import { addAppointment, getClinicStaff } from '../api/mockApi';
 
 const countryCodes = [
   { code: '+1', label: 'US/Canada (+1)' },
@@ -36,6 +29,11 @@ const Form = () => {
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [captchaValid, setCaptchaValid] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [staffOptions, setStaffOptions] = useState<{ value: string; label: string }[]>(
+    [
+      { value: '', label: 'No preference' }
+    ]
+  );
 
   useEffect(() => {
     setCaptcha({
@@ -44,6 +42,13 @@ const Form = () => {
     });
     setCaptchaAnswer('');
     setCaptchaValid(false);
+
+    // Load staff options from db/mockApi
+    const staffList = getClinicStaff();
+    setStaffOptions([
+      { value: '', label: 'No preference' },
+      ...staffList.map(s => ({ value: s.id, label: s.name }))
+    ]);
   }, []);
 
   const handleChange = (
