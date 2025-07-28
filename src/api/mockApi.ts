@@ -7,6 +7,7 @@ type Appointment = {
   email: string;
   staff: string;
   countryCode: string;
+  confirmed?: boolean; 
 };
 
 const STORAGE_KEY = 'appointments';
@@ -38,6 +39,22 @@ export function getAppointmentById(id: string): Appointment | undefined {
   return appointments.find(a => a.id === id);
 }
 
+export function confirmAppointment(id: string) {
+  const appt = appointments.find(a => a.id === id);
+  if (appt) {
+    appt.confirmed = true;
+    saveAppointments();
+  }
+}
+
+export function updateAppointment(id: string, data: Partial<Appointment>) {
+  const appt = appointments.find(a => a.id === id);
+  if (appt) {
+    Object.assign(appt, data);
+    saveAppointments();
+  }
+}
+
 type UserProfile = {
   name: string;
   email: string;
@@ -56,7 +73,7 @@ const USER_KEY = 'currentUser';
 const mockUsers: { username: string; password: string; profile: UserProfile }[] = [
   {
     username: 'admin',
-    password: 'password123',
+    password: 'admin123',
     profile: {
       name: 'Admin User',
       email: 'admin@example.com',
@@ -69,7 +86,6 @@ const mockUsers: { username: string; password: string; profile: UserProfile }[] 
       countryCode: '+1',
     },
   },
-  // For more users
 ];
 
 export function login(username: string, password: string): Promise<UserProfile | null> {
