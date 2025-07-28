@@ -1,17 +1,28 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { notifySuccess } from '../components/Notification';
-import { getAppointmentById } from '../api/mockApi';
+import { getAppointmentById, confirmAppointment, updateAppointment } from '../api/mockApi';
 
 const ViewAppointment = () => {
   const { id } = useParams();
   const appointment = getAppointmentById(id || '');
 
   const [newDateTime, setNewDateTime] = useState(appointment?.datetime || '');
+  const [confirmed, setConfirmed] = useState(appointment?.confirmed ?? false);
 
   const handleReschedule = () => {
-    
-    notifySuccess('Appointment rescheduled!');
+    if (appointment) {
+      updateAppointment(appointment.id, { datetime: newDateTime });
+      notifySuccess('Appointment rescheduled!');
+    }
+  };
+
+  const handleConfirm = () => {
+    if (appointment) {
+      confirmAppointment(appointment.id);
+      setConfirmed(true);
+      notifySuccess('Appointment confirmed!');
+    }
   };
 
   if (!appointment) {
@@ -44,7 +55,13 @@ const ViewAppointment = () => {
         </div>
         <div className="flex items-center">
           <span className="font-semibold text-gray-700 w-44">Date/Time:</span>
-          <span className="text-lg text-gray-900">{appointment.datetime}</span>
+          <span className="text-lg text-gray-900">{newDateTime}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="font-semibold text-gray-700 w-44">Status:</span>
+          <span className={`text-lg font-semibold ${confirmed ? 'text-green-600' : 'text-red-600'}`}>
+            {confirmed ? 'Confirmed' : 'Not Confirmed'}
+          </span>
         </div>
       </div>
       <div className="mb-8">
@@ -56,12 +73,22 @@ const ViewAppointment = () => {
           className="w-full border-2 border-blue-300 rounded-lg px-4 py-3 focus:outline-blue-600 text-lg shadow-sm transition"
         />
       </div>
-      <button
-        onClick={handleReschedule}
-        className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold text-lg shadow hover:bg-blue-800 transition"
-      >
-        Reschedule
-      </button>
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={handleReschedule}
+          className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold text-lg shadow hover:bg-blue-800 transition"
+        >
+          Reschedule
+        </button>
+        {!confirmed && (
+          <button
+            onClick={handleConfirm}
+            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold text-lg shadow hover:bg-green-700 transition"
+          >
+            Confirm Appointment
+          </button>
+        )}
+      </div>
     </div>
   );
 };

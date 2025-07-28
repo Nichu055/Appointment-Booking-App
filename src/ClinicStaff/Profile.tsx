@@ -4,10 +4,13 @@ import { notifySuccess, notifyError } from '../components/Notification';
 import { getCurrentUser, updateCurrentUser } from '../api/mockApi';
 
 const getInitials = (name: string) => {
-  const parts = name.split(' ');
-  return parts.length >= 2
-    ? parts[0][0].toUpperCase() + parts[1][0].toUpperCase()
-    : parts[0][0].toUpperCase();
+  if (!name) return '';
+  const parts = name.trim().split(' ').filter(Boolean);
+  if (parts.length === 0) return '';
+  if (parts.length >= 2) {
+    return (parts[0][0] || '').toUpperCase() + (parts[1][0] || '').toUpperCase();
+  }
+  return (parts[0][0] || '').toUpperCase();
 };
 
 const countryCodes = [

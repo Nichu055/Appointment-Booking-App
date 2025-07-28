@@ -102,7 +102,7 @@ const Appointments = () => {
             <div
               key={date.toISOString()}
               className={`h-14 flex flex-col items-center justify-center border rounded cursor-pointer relative
-                ${appointment ? 'border-green-500' : 'border-gray-200'}
+                ${appointment ? (appointment.confirmed ? 'border-green-500' : 'border-red-500') : 'border-gray-200'}
                 ${isSelected ? 'bg-blue-100 border-blue-600' : ''}
                 hover:bg-blue-50`}
               onClick={() => {
@@ -112,7 +112,10 @@ const Appointments = () => {
             >
               <span className="font-bold">{date.getDate()}</span>
               {appointment && (
-                <span className="w-8 h-1 bg-green-500 rounded absolute left-1/2 -translate-x-1/2 bottom-1"></span>
+                <span
+                  className={`w-8 h-1 rounded absolute left-1/2 -translate-x-1/2 bottom-1
+                    ${appointment.confirmed ? 'bg-green-500' : 'bg-red-500'}`}
+                ></span>
               )}
             </div>
           );

@@ -2,11 +2,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './components/Layout/RootLayout';
 import Home from './pages/Home';
 import Form from './pages/Form';
-import AdminLogin from './admin/Login';
-import AdminDashboard from './admin/Dashboard';
-import AdminProfile from './admin/Profile';
-import AdminAppointments from './admin/Appointments';
-import ViewAppointment from './admin/ViewAppointment';
+import ClinicLogin from './ClinicStaff/Login';
+import ClinicDashboard from './ClinicStaff/Dashboard';
+import ClinicProfile from './ClinicStaff/Profile';
+import ClinicAppointments from './ClinicStaff/Appointments';
+import ViewAppointment from './ClinicStaff/ViewAppointment';
 import NotFound from './pages/NotFound';
 import Notification from './components/Notification';
 
@@ -24,20 +24,20 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin',
-    element: <AdminLogin />,
+    path: '/clinic',
+    element: <ClinicLogin />,
   },
   {
-    path: '/admin/dashboard',
-    element: <AdminDashboard />,
+    path: '/clinic/dashboard',
+    element: <ClinicDashboard />,
     children: [
       {
         path: 'profile',
-        element: <AdminProfile />,
+        element: <ClinicProfile />,
       },
       {
         path: 'appointments',
-        element: <AdminAppointments />,
+        element: <ClinicAppointments />,
       },
       {
         path: 'view/:id',

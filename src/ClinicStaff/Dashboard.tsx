@@ -28,7 +28,7 @@ const Sidebar = ({
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate('/admin');
+      navigate('/clinic');
     }, 800);
   };
 
@@ -60,7 +60,7 @@ const Sidebar = ({
             <button
               className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
               onClick={() => {
-                handleNavigate('/admin/dashboard/profile');
+                handleNavigate('/clinic/dashboard/profile');
                 onClose();
               }}
             >
@@ -70,7 +70,7 @@ const Sidebar = ({
             <button
               className="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-2"
               onClick={() => {
-                handleNavigate('/admin/dashboard/appointments');
+                handleNavigate('/clinic/dashboard/appointments');
                 onClose();
               }}
             >
@@ -108,7 +108,7 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const isDashboardRoot = location.pathname === '/admin/dashboard';
+  const isDashboardRoot = location.pathname === '/clinic/dashboard';
 
   return (
     <div className="flex min-h-screen bg-blue-50">
