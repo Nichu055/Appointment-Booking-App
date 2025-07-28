@@ -84,8 +84,8 @@ const Form = () => {
         return;
       }
       // check reason for visit word count
-      if (form.reason.trim().split(/\s+/).length < 20) {
-        notifyError('Reason for Visit should contain at least 20 words.');
+      if (form.reason.trim().split(/\s+/).length < 5) {
+        notifyError('Reason for Visit must contain at least 5 words.');
         return;
       }
       // check not a robot
