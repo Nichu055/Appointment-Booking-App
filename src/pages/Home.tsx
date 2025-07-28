@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const HomePage = () => (
   <main className="container mx-auto px-4 py-16 flex flex-col items-center">
     <h1 className="text-4xl font-extrabold text-blue-700 mb-4 text-center">
-      Welcome to Appointment Booking App
+      Welcome to MediBook
     </h1>
     <p className="text-lg text-gray-700 mb-8 text-center max-w-xl">
       Effortlessly schedule, manage, and track appointments with our modern, user-friendly platform.

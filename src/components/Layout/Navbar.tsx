@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-md mb-9">
       <div className="container mx-auto px-4 py-4 flex justify-center items-center">
         <Link to="/" className="text-xl font-bold text-blue-600 text-center w-full">
-          Appoint Booking
+          MediBook
         </Link>
       </div>
     </nav>
