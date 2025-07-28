@@ -165,3 +165,18 @@ const mockUsers: { username: string; password: string; profile: ClinicStaff }[] 
 export function getClinicStaff(): ClinicStaff[] {
   return [...clinicStaffDb];
 }
+
+// --- Auto-clear local storage after 1 hour ---
+const CLEAR_KEY = 'lastClearTime';
+const CLEAR_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
+
+function autoClearLocalStorage() {
+  const now = Date.now();
+  const lastClear = Number(localStorage.getItem(CLEAR_KEY) || '0');
+  if (!lastClear || now - lastClear > CLEAR_INTERVAL_MS) {
+    localStorage.removeItem('appointments');
+    localStorage.removeItem('currentUser');
+    localStorage.setItem(CLEAR_KEY, now.toString());
+  }
+}
+autoClearLocalStorage();
